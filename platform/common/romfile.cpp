@@ -239,6 +239,18 @@ void RomFile::fullMemoryMode() {
 
 
 void RomFile::loadBanks() {
+#ifdef EMBEDDED_ROM
+    gbsMode = false;
+
+    numRomBanks = rom_gb_size/0x4000;
+    numLoadedRomBanks = numRomBanks;
+    romBankSlots = (u8*)rom_gb;
+
+    for (int i=0; i<numRomBanks; i++) {
+        bankSlotIDs[i] = i;
+        lastBanksUsed.push_back(i);
+    }
+#else
     // Check if this is a GBS file
     gbsMode = (strcasecmp(strrchr(filename, '.'), ".gbs") == 0);
 
@@ -303,13 +315,14 @@ void RomFile::loadBanks() {
         file_read(romBankSlots+0x4000*i, 1, 0x4000, romFile);
         lastBanksUsed.push_back(i);
     }
-
+#endif
     romSlot0 = romBankSlots;
     romSlot1 = romBankSlots + 0x4000;
-
+#ifndef EMBEDDED_ROM
     // If we've loaded everything, close the rom file
     if (numRomBanks <= numLoadedRomBanks) {
         file_close(romFile);
         romFile = NULL;
     }
+#endif
 }

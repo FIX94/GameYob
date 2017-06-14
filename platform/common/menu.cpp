@@ -417,7 +417,7 @@ SubMenu menuList[] = {
             {"Rumble Pak", setRumbleFunc, 4, {"Off","Low","Mid","High"}, 2, MENU_DS},
             {"Console Output", consoleOutputFunc, 4, {"Off","Time","FPS+Time","Debug"}, 0, MENU_ALL},
             {"GB Printer", printerEnableFunc, 2, {"Off","On"}, 1, MENU_ALL},
-            {"Autosaving", setAutoSaveFunc, 2, {"Off","On"}, 1, MENU_DS},
+            {"Autosaving", setAutoSaveFunc, 2, {"Off","On"}, 0, MENU_DS},
             {"Save Settings", saveSettingsFunc, 0, {}, 0, MENU_ALL}
         }
     },
@@ -427,7 +427,7 @@ SubMenu menuList[] = {
         {
             {"Game Screen", setScreenFunc, 2, {"Top","Bottom"}, 0, MENU_ALL},
             {"Single Screen", setSingleScreenFunc, 2, {"Off","On"}, 0, MENU_ALL},
-            {"Scaling", setScaleModeFunc, 3, {"Off","Aspect","Full"}, 0, MENU_DS},
+            {"Scaling", setScaleModeFunc, 3, {"Off","Aspect","Full"}, 1, MENU_DS},
             {"Scale Filter", setScaleFilterFunc, 2, {"Off","On"}, 1, MENU_DS},
             {"SGB Borders", sgbBorderEnableFunc, 2, {"Off","On"}, 1, MENU_ALL},
             {"Custom Border", customBorderEnableFunc, 2, {"Off","On"}, 1, MENU_ALL},
@@ -448,7 +448,7 @@ SubMenu menuList[] = {
         "Debug",
         7,
         {
-            {"Wait for Vblank", vblankWaitFunc, 2, {"Off","On"}, 0, MENU_DS},
+            {"Wait for Vblank", vblankWaitFunc, 2, {"Off","On"}, 1, MENU_DS},
             {"Hblank", hblankEnableFunc, 2, {"Off","On"}, 1, MENU_DS},
             {"Window", windowEnableFunc, 2, {"Off","On"}, 1, MENU_DS},
             {"Sound", soundEnableFunc, 2, {"Off","On"}, 1, MENU_ALL},

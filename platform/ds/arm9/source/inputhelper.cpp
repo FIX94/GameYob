@@ -47,15 +47,19 @@ touchPosition touchData;
 
 void initInput()
 {
+#ifndef EMBEDDED_ROM
     fatInit(FAT_CACHE_SIZE, true);
+#endif
     //fatInitDefault();
 }
 
 void flushFatCache() {
+#ifndef EMBEDDED_ROM
     // This involves things from libfat which aren't normally visible
     devoptab_t* devops = (devoptab_t*)GetDeviceOpTab ("sd");
     PARTITION* partition = (PARTITION*)devops->deviceData;
     _FAT_cache_flush(partition->cache); // Flush the cache manually
+#endif
 }
 
 

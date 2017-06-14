@@ -104,7 +104,9 @@ int main(int argc, char* argv[])
     initGFX();
 
     consoleInitialized = false;
-
+#ifdef EMBEDDED_ROM
+    mgr_loadRom("rom.gb");
+#else
     if (argc >= 2) {
         char* filename = argv[1];
         mgr_loadRom(filename);
@@ -113,7 +115,7 @@ int main(int argc, char* argv[])
     else {
         mgr_selectRom();
     }
-
+#endif
     for (;;) {
         mgr_runFrame();
         mgr_updateVBlank();

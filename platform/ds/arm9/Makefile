@@ -18,7 +18,7 @@ TARGET :=	gameyob
 BUILD		:=	build
 SOURCES		:=	source ../../common
 INCLUDES	:=	include ../include ../../common/include
-DATA		:=
+DATA		:=	data
 GFX			:= gfx/
 
 #---------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ CFLAGS	:=	-Wall -Wno-psabi -DNO_VIZ \
  			-march=armv5te -mtune=arm946e-s -fomit-frame-pointer\
 			-ffast-math -O3 $(ARCH) $(DEBUG) \
 			-DVERSION_STRING=\"`git describe --always --abbrev=4`\"\
-			-DC_IO_FUNCTIONS -DNIFI \
+			-DEMBEDDED_ROM -DNIFI \
 			-include "nds/ndstypes.h"
 
 CFLAGS	+=	$(INCLUDE) -DARM9 -DDS
@@ -45,7 +45,7 @@ LDFLAGS	=	-specs=ds_arm9.specs $(ARCH) -Wl,-Map,$(notdir $*.map)
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	-lfat -ldsnifi9 -lnds9
+LIBS	:=	-lstdc++ -lwhy -ldsnifi9 -lnds9
  
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -77,15 +77,15 @@ GFX_FILES   :=  $(foreach dir, $(GFX),$(notdir $(wildcard $(dir)/*.png)))
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------
-ifeq ($(strip $(CPPFILES)),)
+#ifeq ($(strip $(CPPFILES)),)
 #---------------------------------------------------------------------------------
 	export LD	:=	$(CC)
 #---------------------------------------------------------------------------------
-else
+#else
 #---------------------------------------------------------------------------------
-	export LD	:=	$(CXX)
+#	export LD	:=	$(CXX)
 #---------------------------------------------------------------------------------
-endif
+#endif
 #---------------------------------------------------------------------------------
 
 export OFILES	:=	$(GFX_FILES:.png=.o) \
@@ -137,7 +137,7 @@ version.o: .FORCE
 #---------------------------------------------------------------------------------
 # you need a rule like this for each extension you use as binary data 
 #---------------------------------------------------------------------------------
-%.bin.o	:	%.bin
+%.gb.o	:	%.gb
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	@$(bin2o)

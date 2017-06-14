@@ -723,7 +723,7 @@ int Gameboy::loadSave(int saveId)
         saveFile = NULL;
         return 0;
     }
-
+#ifndef EMBEDDED_ROM
     // Now load the data.
     saveFile = file_open(savename, "r+b");
 
@@ -799,12 +799,13 @@ int Gameboy::loadSave(int saveId)
         }
     }
 #endif
-
+#endif
     return 0;
 }
 
 int Gameboy::saveGame()
 {
+#ifndef EMBEDDED_ROM
     if (saveFile == NULL || getNumSramBanks() == 0)
         return 0;
 
@@ -821,11 +822,12 @@ int Gameboy::saveGame()
 
     flushFatCache();
     memset(dirtySectors, 0, sizeof(dirtySectors));
-
+#endif
     return 0;
 }
 
 void Gameboy::gameboySyncAutosave() {
+#ifndef EMBEDDED_ROM
 #ifdef DS
     if (!autosaveStarted || saveFile == NULL)
         return;
@@ -873,6 +875,7 @@ void Gameboy::gameboySyncAutosave() {
 
     framesSinceAutosaveStarted = 0;
     autosaveStarted = false;
+#endif
 #endif
 }
 
